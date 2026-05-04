@@ -2,520 +2,231 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toko Simple</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --card:#111a33;
-      --muted:#9fb0ff;
-      --text:#eaf0ff;
-      --line:rgba(255,255,255,.12);
-      --accent:#6ea8ff;
-      --accent2:#7cffc5;
-      --danger:#ff5c7a;
-      --shadow:0 12px 40px rgba(0,0,0,.35);
-      --radius:18px;
-      --radius2:14px;
-    }
+    :root{--bg:#0b1020;--card:#111a33;--line:rgba(255,255,255,.12);--text:#eaf0ff;--muted:#9fb0ff;}
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 10% 10%, rgba(110,168,255,.22), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(124,255,197,.18), transparent 60%),
-                  radial-gradient(900px 600px at 50% 90%, rgba(255,92,122,.10), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-    .wrap{
-      width:min(980px, 100%);
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:18px;
-    }
-    @media (max-width: 860px){
-      .wrap{grid-template-columns:1fr}
-    }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .card .hd{
-      padding:18px 18px 14px 18px;
-      border-bottom:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-    }
-    .title{
-      display:flex; flex-direction:column; gap:3px;
-    }
-    .title h1{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .title p{
-      margin:0;
-      color:var(--muted);
-      font-size:12.8px;
-    }
-    .badge{
-      font-size:12px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      background: rgba(255,255,255,.04);
-      white-space:nowrap;
-    }
-    .bd{padding:18px}
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 520px){
-      .grid{grid-template-columns:1fr}
-    }
-    label{
-      font-size:12px;
-      color:var(--muted);
-      display:block;
-      margin:0 0 7px 2px;
-    }
-    .input, select, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      color:var(--text);
-      outline:none;
-    }
-    textarea{min-height:92px; resize:vertical}
-    .row{margin-bottom:12px}
-    .methods{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-    }
-    @media (max-width: 520px){
-      .methods{grid-template-columns:1fr}
-    }
-    .method{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius:var(--radius2);
-      padding:12px;
-      cursor:pointer;
-      user-select:none;
-      transition:.18s ease;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .method:hover{transform: translateY(-1px); border-color: rgba(110,168,255,.4)}
-    .method input{margin-top:2px}
-    .method .mttl{font-weight:650; font-size:13.5px}
-    .method .mdesc{color:var(--muted); font-size:12px; margin-top:3px; line-height:1.25}
-    .pill{
-      display:inline-block;
-      margin-top:8px;
-      font-size:11px;
-      padding:6px 8px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      background: rgba(0,0,0,.18);
-    }
-    .divider{
-      height:1px; background:var(--line);
-      margin:14px 0;
-    }
-    .btn{
-      width:100%;
-      padding:13px 14px;
-      border-radius:14px;
-      border:1px solid rgba(110,168,255,.55);
-      background: linear-gradient(135deg, rgba(110,168,255,.28), rgba(124,255,197,.18));
-      color:var(--text);
-      font-weight:700;
-      cursor:pointer;
-      transition:.18s ease;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-      transform:none;
-    }
-    .mini{
-      display:flex;
-      gap:10px;
-      margin-top:10px;
-      align-items:center;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .mini a{color:var(--accent); text-decoration:none}
-    .summary{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .sitem{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background: rgba(0,0,0,.14);
-    }
-    .sitem strong{font-size:13px}
-    .sitem span{color:var(--muted); font-size:12px}
-    .total{
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(124,255,197,.45);
-      background: linear-gradient(135deg, rgba(124,255,197,.16), rgba(110,168,255,.10));
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-    }
-    .total .tlabel{
-      display:flex; flex-direction:column; gap:3px;
-    }
-    .total .tlabel b{font-size:14px}
-    .total .tlabel small{color:var(--muted)}
-    .total .tprice{font-size:18px; font-weight:800}
-    .notice{
-      border:1px dashed rgba(255,255,255,.22);
-      border-radius:14px;
-      padding:12px;
-      color:var(--muted);
-      font-size:12.5px;
-      line-height:1.35;
-      background: rgba(255,255,255,.03);
-    }
-    .err{color: var(--danger); font-size:12px; margin-top:6px; display:none}
-    .qrbox{
-      margin-top:10px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px;
-      display:none;
-      background: rgba(0,0,0,.12);
-    }
-    .qrimg{
-      width:100%;
-      aspect-ratio: 1 / 1;
-      border-radius:12px;
-      border:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-size:12px;
-      background: rgba(255,255,255,.03);
-    }
-    .copyrow{
-      display:flex; gap:10px; margin-top:10px;
-    }
-    .copyrow .input{flex:1}
-    .copybtn{
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:650;
-    }
+    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);padding:20px}
+    .wrap{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+    @media(max-width:860px){.wrap{grid-template-columns:1fr}}
+    .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    header{padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}
+    header h1{margin:0;font-size:18px}
+    header small{color:var(--muted)}
+    .grid{padding:16px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+    .p{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(0,0,0,.15);display:flex;flex-direction:column;gap:10px}
+    .p .img{height:120px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);background:rgba(255,255,255,.03)}
+    .p b{font-size:14px}
+    .p .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .btn{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-weight:650}
+    .btn:hover{transform:translateY(-1px)}
+    .cart{padding:16px;display:flex;flex-direction:column;gap:10px}
+    .item{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:rgba(0,0,0,.15)}
+    .item small{color:var(--muted)}
+    .qty{display:flex;gap:6px;align-items:center}
+    .qty button{width:28px;height:28px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);cursor:pointer}
+    .total{margin-top:6px;border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;align-items:center}
+    input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.15);color:var(--text);outline:none}
+    .muted{color:var(--muted);font-size:12px;line-height:1.35}
+    .cta{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(110,168,255,.55);
+         background:linear-gradient(135deg, rgba(110,168,255,.25), rgba(124,255,197,.15));
+         color:var(--text);cursor:pointer;font-weight:800}
+    .cta:disabled{opacity:.55;cursor:not-allowed}
   </style>
 </head>
 <body>
-  <main class="wrap">
+  <div class="wrap">
 
-    <!-- FORM PAYMENT -->
-    <section class="card" aria-label="Form pembayaran">
-      <div class="hd">
-        <div class="title">
-          <h1>Payment</h1>
-          <p>Isi data lalu pilih metode pembayaran.</p>
+    <!-- PRODUK -->
+    <section class="card">
+      <header>
+        <div>
+          <h1 id="shopName">TOKO KAMU</h1>
+          <small>Jualan simple + checkout ke WhatsApp</small>
         </div>
-        <div class="badge" id="orderIdBadge">Order: #INV-0001</div>
-      </div>
+        <small id="cartCount">Keranjang: 0</small>
+      </header>
 
-      <div class="bd">
-        <div class="row grid">
-          <div>
-            <label for="name">Nama</label>
-            <input class="input" id="name" placeholder="Contoh: Andi" autocomplete="name" />
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input class="input" id="email" placeholder="andi@email.com" type="email" autocomplete="email" />
-          </div>
-        </div>
-
-        <div class="row grid">
-          <div>
-            <label for="phone">No. WhatsApp</label>
-            <input class="input" id="phone" placeholder="08xxxxxxxxxx" inputmode="numeric" />
-          </div>
-          <div>
-            <label for="amount">Nominal (IDR)</label>
-            <input class="input" id="amount" placeholder="Contoh: 50000" inputmode="numeric" />
-            <div class="err" id="amountErr">Nominal minimal Rp 1.000</div>
-          </div>
-        </div>
-
-        <div class="row">
-          <label>Metode Pembayaran</label>
-          <div class="methods" role="radiogroup" aria-label="Metode pembayaran">
-            <label class="method">
-              <input type="radio" name="method" value="qris" checked />
-              <div>
-                <div class="mttl">QRIS</div>
-                <div class="mdesc">Bayar pakai scan QR (OVO/DANA/GoPay/Bank).</div>
-                <span class="pill">Cepat</span>
-              </div>
-            </label>
-
-            <label class="method">
-              <input type="radio" name="method" value="bank" />
-              <div>
-                <div class="mttl">Transfer Bank</div>
-                <div class="mdesc">Transfer manual ke rekening tujuan.</div>
-                <span class="pill">Verifikasi</span>
-              </div>
-            </label>
-
-            <label class="method">
-              <input type="radio" name="method" value="ewallet" />
-              <div>
-                <div class="mttl">E-Wallet</div>
-                <div class="mdesc">Ketik nomor tujuan e-wallet.</div>
-                <span class="pill">Praktis</span>
-              </div>
-            </label>
-          </div>
-
-          <!-- Detail dinamis -->
-          <div class="qrbox" id="qrisBox">
-            <div class="qrimg" id="qrisImg">Taruh gambar QR di sini</div>
-            <div class="mini">Tips: kalau punya QR statis, ganti teks ini dengan <code>&lt;img src="qris.png"&gt;</code></div>
-          </div>
-
-          <div class="qrbox" id="bankBox">
-            <div class="mini" style="margin:0 0 10px 0;">
-              Rekening tujuan:
-            </div>
-            <div class="copyrow">
-              <input class="input" id="bankAcc" value="BCA 1234567890 a.n. NAMA TOKO" readonly />
-              <button class="copybtn" type="button" onclick="copyText('bankAcc')">Copy</button>
-            </div>
-            <div class="mini">Setelah transfer, simpan bukti pembayaran.</div>
-          </div>
-
-          <div class="qrbox" id="ewalletBox">
-            <div class="mini" style="margin:0 0 10px 0;">Nomor tujuan e-wallet:</div>
-            <div class="copyrow">
-              <input class="input" id="ewalletNo" value="DANA 08xxxxxxxxxx" readonly />
-              <button class="copybtn" type="button" onclick="copyText('ewalletNo')">Copy</button>
-            </div>
-            <div class="mini">Pastikan nama penerima benar sebelum kirim.</div>
-          </div>
-        </div>
-
-        <div class="row">
-          <label for="note">Catatan (opsional)</label>
-          <textarea id="note" placeholder="Contoh: untuk order panel 1 bulan..."></textarea>
-        </div>
-
-        <button class="btn" id="payBtn" type="button">Bayar Sekarang</button>
-        <div class="mini">
-          Dengan klik “Bayar”, kamu setuju dengan <a href="#" onclick="alert('Contoh: kebijakan/terms');return false;">S&K</a>.
-        </div>
-      </div>
+      <div class="grid" id="productGrid"></div>
     </section>
 
-    <!-- RINGKASAN -->
-    <aside class="card" aria-label="Ringkasan transaksi">
-      <div class="hd">
-        <div class="title">
-          <h1>Ringkasan</h1>
-          <p>Cek total sebelum lanjut.</p>
-        </div>
-        <div class="badge" id="statusBadge">Status: Draft</div>
-      </div>
+    <!-- KERANJANG -->
+    <aside class="card">
+      <header>
+        <h1>Keranjang</h1>
+        <button class="btn" id="clearBtn" type="button">Kosongkan</button>
+      </header>
 
-      <div class="summary">
-        <div class="sitem">
-          <div>
-            <strong>Produk</strong><br />
-            <span id="productName">Topup / Layanan</span>
-          </div>
-          <div style="text-align:right">
-            <strong id="qty">1x</strong><br />
-            <span>Qty</span>
-          </div>
+      <div class="cart">
+        <div>
+          <label class="muted">Nama pembeli</label>
+          <input id="buyerName" placeholder="Contoh: Andi" />
+        </div>
+        <div>
+          <label class="muted">Alamat / Catatan</label>
+          <input id="buyerNote" placeholder="Contoh: Jl. Mawar No. 12 / warna hitam" />
         </div>
 
-        <div class="sitem">
-          <div>
-            <strong>Metode</strong><br />
-            <span id="methodText">QRIS</span>
-          </div>
-          <div style="text-align:right">
-            <strong>Biaya</strong><br />
-            <span id="feeText">Rp 0</span>
-          </div>
-        </div>
+        <div id="cartList" style="display:flex;flex-direction:column;gap:10px;"></div>
 
         <div class="total">
-          <div class="tlabel">
-            <b>Total Bayar</b>
-            <small id="smallNote">Sudah termasuk biaya jika ada.</small>
+          <div>
+            <div class="muted">Total</div>
+            <div style="font-size:18px;font-weight:900" id="totalText">Rp 0</div>
           </div>
-          <div class="tprice" id="totalText">Rp 0</div>
+          <div style="min-width:140px">
+            <button class="cta" id="waBtn" type="button" disabled>Checkout WA</button>
+          </div>
         </div>
 
-        <div class="notice" id="noticeBox">
-          • Ini contoh tampilan payment page. <br/>
-          • Untuk pembayaran real, integrasikan ke payment gateway (Midtrans/Xendit/dll).
+        <div class="muted">
+          * Tombol Checkout akan membuka WhatsApp dengan format pesanan otomatis.
         </div>
       </div>
     </aside>
 
-  </main>
+  </div>
 
   <script>
-    // ====== Simple helpers ======
-    const rupiah = (n) => new Intl.NumberFormat("id-ID").format(n || 0);
+    // ===== UBAH INI =====
+    const WHATSAPP_NUMBER = "6281234567890"; // ganti: format internasional, tanpa + (contoh Indonesia 62...)
+    const SHOP_NAME = "TOKO KAMU";
 
-    const el = (id) => document.getElementById(id);
-    const amountEl = el("amount");
-    const amountErr = el("amountErr");
-    const totalText = el("totalText");
-    const feeText = el("feeText");
-    const methodText = el("methodText");
-    const statusBadge = el("statusBadge");
+    const products = [
+      { id: "p1", name: "Produk A", price: 25000 },
+      { id: "p2", name: "Produk B", price: 50000 },
+      { id: "p3", name: "Produk C", price: 12000 },
+      { id: "p4", name: "Produk D", price: 99000 },
+    ];
+    // ====================
 
-    const qrisBox = el("qrisBox");
-    const bankBox = el("bankBox");
-    const ewalletBox = el("ewalletBox");
+    const rupiah = (n) => "Rp " + new Intl.NumberFormat("id-ID").format(n || 0);
 
-    function getMethod(){
-      return document.querySelector('input[name="method"]:checked')?.value || "qris";
+    const productGrid = document.getElementById("productGrid");
+    const cartList = document.getElementById("cartList");
+    const totalText = document.getElementById("totalText");
+    const cartCount = document.getElementById("cartCount");
+    const waBtn = document.getElementById("waBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const buyerName = document.getElementById("buyerName");
+    const buyerNote = document.getElementById("buyerNote");
+
+    document.getElementById("shopName").textContent = SHOP_NAME;
+
+    // cart: { [id]: qty }
+    const cart = {};
+
+    function renderProducts(){
+      productGrid.innerHTML = products.map(p => `
+        <div class="p">
+          <div class="img">Foto ${p.name}</div>
+          <div>
+            <b>${p.name}</b><br>
+            <small style="color:var(--muted)">${rupiah(p.price)}</small>
+          </div>
+          <div class="row">
+            <button class="btn" type="button" onclick="addToCart('${p.id}')">Tambah</button>
+            <small style="color:var(--muted)">ID: ${p.id}</small>
+          </div>
+        </div>
+      `).join("");
     }
 
-    function calcFee(method, amount){
-      // Contoh fee (kamu boleh ubah):
-      // QRIS 0.7% minimal 500
-      // Bank 0
-      // Ewallet 1% minimal 1000
-      if(amount <= 0) return 0;
+    function addToCart(id){
+      cart[id] = (cart[id] || 0) + 1;
+      renderCart();
+    }
 
-      if(method === "qris"){
-        return Math.max(500, Math.round(amount * 0.007));
+    function changeQty(id, delta){
+      cart[id] = (cart[id] || 0) + delta;
+      if(cart[id] <= 0) delete cart[id];
+      renderCart();
+    }
+
+    function calcTotal(){
+      let total = 0;
+      for(const [id, qty] of Object.entries(cart)){
+        const p = products.find(x => x.id === id);
+        if(p) total += p.price * qty;
       }
-      if(method === "ewallet"){
-        return Math.max(1000, Math.round(amount * 0.01));
-      }
-      return 0;
+      return total;
     }
 
-    function renderMethodBox(method){
-      qrisBox.style.display = (method === "qris") ? "block" : "none";
-      bankBox.style.display = (method === "bank") ? "block" : "none";
-      ewalletBox.style.display = (method === "ewallet") ? "block" : "none";
+    function renderCart(){
+      const items = Object.entries(cart);
+      cartCount.textContent = "Keranjang: " + items.reduce((a,[,q])=>a+q,0);
 
-      methodText.textContent = method === "qris" ? "QRIS" : (method === "bank" ? "Transfer Bank" : "E-Wallet");
-    }
-
-    function renderTotals(){
-      const raw = (amountEl.value || "").replace(/[^\d]/g, "");
-      const amount = Number(raw || 0);
-      const method = getMethod();
-
-      // validasi nominal minimal
-      if(amount > 0 && amount < 1000){
-        amountErr.style.display = "block";
-      }else{
-        amountErr.style.display = "none";
-      }
-
-      // tampilkan input dengan formatting ringan (tanpa mengganggu pengetikan)
-      // (opsional) komentar baris di bawah jika tidak mau auto-format
-      // amountEl.value = raw ? rupiah(raw) : "";
-
-      const fee = calcFee(method, amount);
-      const total = amount + fee;
-
-      feeText.textContent = "Rp " + rupiah(fee);
-      totalText.textContent = "Rp " + rupiah(total);
-    }
-
-    function copyText(inputId){
-      const input = el(inputId);
-      input.select();
-      input.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-      alert("Tersalin: " + input.value);
-    }
-    window.copyText = copyText;
-
-    // ====== Events ======
-    document.querySelectorAll('input[name="method"]').forEach(r => {
-      r.addEventListener("change", () => {
-        renderMethodBox(getMethod());
-        renderTotals();
-      });
-    });
-
-    amountEl.addEventListener("input", renderTotals);
-
-    el("payBtn").addEventListener("click", () => {
-      const raw = (amountEl.value || "").replace(/[^\d]/g, "");
-      const amount = Number(raw || 0);
-      const method = getMethod();
-
-      if(amount < 1000){
-        amountErr.style.display = "block";
-        amountEl.focus();
+      if(items.length === 0){
+        cartList.innerHTML = `<div class="muted">Keranjang masih kosong. Tambahkan produk dulu.</div>`;
+        totalText.textContent = rupiah(0);
+        waBtn.disabled = true;
         return;
       }
 
-      // Di sini biasanya kamu redirect ke payment gateway / create invoice
-      // Contoh: fetch("/api/create-invoice", {method:"POST", body: JSON.stringify({...})})
+      cartList.innerHTML = items.map(([id, qty]) => {
+        const p = products.find(x => x.id === id);
+        const sub = p.price * qty;
+        return `
+          <div class="item">
+            <div>
+              <div style="font-weight:750">${p.name}</div>
+              <small>${rupiah(p.price)} x ${qty} = ${rupiah(sub)}</small>
+            </div>
+            <div class="qty">
+              <button type="button" onclick="changeQty('${id}', -1)">-</button>
+              <div style="min-width:20px;text-align:center">${qty}</div>
+              <button type="button" onclick="changeQty('${id}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      }).join("");
 
-      statusBadge.textContent = "Status: Menunggu Pembayaran";
-      alert(
-        "Simulasi checkout\n" +
-        "Metode: " + (method === "qris" ? "QRIS" : method === "bank" ? "Transfer Bank" : "E-Wallet") + "\n" +
-        "Nominal: Rp " + rupiah(amount) + "\n" +
-        "Total: " + totalText.textContent
-      );
+      totalText.textContent = rupiah(calcTotal());
+      waBtn.disabled = false;
+    }
+
+    function buildWhatsAppMessage(){
+      const name = (buyerName.value || "").trim() || "-";
+      const note = (buyerNote.value || "").trim() || "-";
+
+      let lines = [];
+      lines.push(`Halo ${SHOP_NAME}, saya mau order:`);
+      lines.push(`Nama: ${name}`);
+      lines.push(`Catatan/Alamat: ${note}`);
+      lines.push("");
+      lines.push("Detail pesanan:");
+
+      for(const [id, qty] of Object.entries(cart)){
+        const p = products.find(x => x.id === id);
+        lines.push(`- ${p.name} x${qty} = ${rupiah(p.price * qty)}`);
+      }
+
+      lines.push("");
+      lines.push(`Total: ${rupiah(calcTotal())}`);
+      lines.push("Mohon info cara pembayarannya ya. Terima kasih!");
+
+      return lines.join("\n");
+    }
+
+    waBtn.addEventListener("click", () => {
+      const text = encodeURIComponent(buildWhatsAppMessage());
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+      window.open(url, "_blank");
     });
 
-    // ====== Init ======
-    renderMethodBox(getMethod());
-    renderTotals();
+    clearBtn.addEventListener("click", () => {
+      for(const k of Object.keys(cart)) delete cart[k];
+      renderCart();
+    });
+
+    // expose functions to inline onclick
+    window.addToCart = addToCart;
+    window.changeQty = changeQty;
+
+    renderProducts();
+    renderCart();
   </script>
 </body>
 </html>
