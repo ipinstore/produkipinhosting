@@ -1,207 +1,174 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Payment Page</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('https://wallpaperaccess.com/full/1567666.png') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<title>Cyber Anime Payment</title>
 
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-            width: 300px;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-        h1 {
-            margin-bottom: 20px;
-        }
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle at top, #0f0f1a, #050509);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-        .payment-box {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
+/* Efek neon background */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #00f7ff, #ff00c8, #00f7ff);
+  animation: neonBG 10s linear infinite;
+  opacity: 0.05;
+}
 
-        a {
-            color: #00ffcc;
-            text-decoration: none;
-            font-weight: bold;
-        }
+@keyframes neonBG {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-50%, -50%); }
+}
 
-        a:hover {
-            text-decoration: underline;
-        }
+.container {
+  padding: 30px;
+  position: relative;
+  z-index: 1;
+}
 
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #00c3ff;
-            color: white;
-            border-radius: 8px;
-        }
+/* Anime avatar */
+.anime-img {
+  width: 160px;
+  border-radius: 50%;
+  border: 3px solid #00f7ff;
+  box-shadow: 0 0 20px #00f7ff, 0 0 40px #ff00c8;
+  animation: glow 2s infinite alternate;
+}
 
-        .btn:hover {
-            background: #0099cc;
-        }
-    </style>
+@keyframes glow {
+  from { box-shadow: 0 0 10px #00f7ff; }
+  to { box-shadow: 0 0 25px #ff00c8; }
+}
+
+h1 {
+  margin-top: 15px;
+  font-size: 28px;
+  color: #00f7ff;
+  text-shadow: 0 0 10px #00f7ff;
+}
+
+p {
+  color: #aaa;
+}
+
+/* Card neon */
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 300px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 25px #00f7ff;
+  transform: scale(1.03);
+}
+
+h2 {
+  color: #ff00c8;
+  text-shadow: 0 0 8px #ff00c8;
+}
+
+/* Button neon */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 2px solid #00f7ff;
+  color: #00f7ff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #00f7ff;
+  color: #000;
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+/* QRIS */
+.qris-img {
+  width: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 15px #ff00c8;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Animasi masuk */
+.fade-in {
+  animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Payment</h1>
+<div class="container fade-in">
 
-    <div class="payment-box">
-        <p><strong>DANA</strong></p>
-        <p>081234567890</p> <!-- GANTI NOMOR DANA -->
-    </div>
+  <!-- Ganti gambar anime -->
+  <img src="https://files.catbox.moe/lxwq5t.jpeg" class="anime-img">
 
-    <div class="payment-box">
-        <p><strong>QRIS</strong></p>
-        <a href="https://linkqrisanda.com" target="_blank">Klik untuk bayar QRIS</a> <!-- GANTI LINK QRIS -->
-    </div>
+  <h1>CYBER PAYMENT</h1>
+  <p>Pilih metode pembayaran</p>
 
-    <a class="btn" href="#">Konfirmasi Pembayaran</a>
+  <!-- DANA -->
+  <div class="card">
+    <h2>DANA</h2>
+    <p id="dana">085711764473</p>
+    <button class="btn" onclick="copyDana()">Salin Nomor</button>
+  </div>
+
+  <!-- QRIS -->
+  <div class="card">
+    <h2>QRIS</h2>
+    <!-- Ganti QRIS -->
+    <img src="https://files.catbox.moe/5srb9x.jpg" class="qris-img">
+    <p>Scan untuk bayar</p>
+  </div>
+
+  <footer>© 2026 Cyber Payment</footer>
+
 </div>
 
-</body>
-</html>
-    const productGrid = document.getElementById("productGrid");
-    const cartList = document.getElementById("cartList");
-    const totalText = document.getElementById("totalText");
-    const cartCount = document.getElementById("cartCount");
-    const waBtn = document.getElementById("waBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const buyerName = document.getElementById("buyerName");
-    const buyerNote = document.getElementById("buyerNote");
+<script>
+function copyDana() {
+  const text = document.getElementById("dana").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Nomor DANA berhasil disalin!");
+}
+</script>
 
-    document.getElementById("shopName").textContent = SHOP_NAME;
-
-    // cart: { [id]: qty }
-    const cart = {};
-
-    function renderProducts(){
-      productGrid.innerHTML = products.map(p => `
-        <div class="p">
-          <div class="img">Foto ${p.name}</div>
-          <div>
-            <b>${p.name}</b><br>
-            <small style="color:var(--muted)">${rupiah(p.price)}</small>
-          </div>
-          <div class="row">
-            <button class="btn" type="button" onclick="addToCart('${p.id}')">Tambah</button>
-            <small style="color:var(--muted)">ID: ${p.id}</small>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function addToCart(id){
-      cart[id] = (cart[id] || 0) + 1;
-      renderCart();
-    }
-
-    function changeQty(id, delta){
-      cart[id] = (cart[id] || 0) + delta;
-      if(cart[id] <= 0) delete cart[id];
-      renderCart();
-    }
-
-    function calcTotal(){
-      let total = 0;
-      for(const [id, qty] of Object.entries(cart)){
-        const p = products.find(x => x.id === id);
-        if(p) total += p.price * qty;
-      }
-      return total;
-    }
-
-    function renderCart(){
-      const items = Object.entries(cart);
-      cartCount.textContent = "Keranjang: " + items.reduce((a,[,q])=>a+q,0);
-
-      if(items.length === 0){
-        cartList.innerHTML = `<div class="muted">Keranjang masih kosong. Tambahkan produk dulu.</div>`;
-        totalText.textContent = rupiah(0);
-        waBtn.disabled = true;
-        return;
-      }
-
-      cartList.innerHTML = items.map(([id, qty]) => {
-        const p = products.find(x => x.id === id);
-        const sub = p.price * qty;
-        return `
-          <div class="item">
-            <div>
-              <div style="font-weight:750">${p.name}</div>
-              <small>${rupiah(p.price)} x ${qty} = ${rupiah(sub)}</small>
-            </div>
-            <div class="qty">
-              <button type="button" onclick="changeQty('${id}', -1)">-</button>
-              <div style="min-width:20px;text-align:center">${qty}</div>
-              <button type="button" onclick="changeQty('${id}', 1)">+</button>
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      totalText.textContent = rupiah(calcTotal());
-      waBtn.disabled = false;
-    }
-
-    function buildWhatsAppMessage(){
-      const name = (buyerName.value || "").trim() || "-";
-      const note = (buyerNote.value || "").trim() || "-";
-
-      let lines = [];
-      lines.push(`Halo ${SHOP_NAME}, saya mau order:`);
-      lines.push(`Nama: ${name}`);
-      lines.push(`Catatan/Alamat: ${note}`);
-      lines.push("");
-      lines.push("Detail pesanan:");
-
-      for(const [id, qty] of Object.entries(cart)){
-        const p = products.find(x => x.id === id);
-        lines.push(`- ${p.name} x${qty} = ${rupiah(p.price * qty)}`);
-      }
-
-      lines.push("");
-      lines.push(`Total: ${rupiah(calcTotal())}`);
-      lines.push("Mohon info cara pembayarannya ya. Terima kasih!");
-
-      return lines.join("\n");
-    }
-
-    waBtn.addEventListener("click", () => {
-      const text = encodeURIComponent(buildWhatsAppMessage());
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-      window.open(url, "_blank");
-    });
-
-    clearBtn.addEventListener("click", () => {
-      for(const k of Object.keys(cart)) delete cart[k];
-      renderCart();
-    });
-
-    // expose functions to inline onclick
-    window.addToCart = addToCart;
-    window.changeQty = changeQty;
-
-    renderProducts();
-    renderCart();
-  </script>
 </body>
 </html>
