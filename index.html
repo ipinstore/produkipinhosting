@@ -1,109 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Toko Simple</title>
-  <style>
-    :root{--bg:#0b1020;--card:#111a33;--line:rgba(255,255,255,.12);--text:#eaf0ff;--muted:#9fb0ff;}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);padding:20px}
-    .wrap{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
-    @media(max-width:860px){.wrap{grid-template-columns:1fr}}
-    .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-    header{padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}
-    header h1{margin:0;font-size:18px}
-    header small{color:var(--muted)}
-    .grid{padding:16px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media(max-width:520px){.grid{grid-template-columns:1fr}}
-    .p{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(0,0,0,.15);display:flex;flex-direction:column;gap:10px}
-    .p .img{height:120px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);background:rgba(255,255,255,.03)}
-    .p b{font-size:14px}
-    .p .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .btn{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-weight:650}
-    .btn:hover{transform:translateY(-1px)}
-    .cart{padding:16px;display:flex;flex-direction:column;gap:10px}
-    .item{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:rgba(0,0,0,.15)}
-    .item small{color:var(--muted)}
-    .qty{display:flex;gap:6px;align-items:center}
-    .qty button{width:28px;height:28px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);cursor:pointer}
-    .total{margin-top:6px;border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;align-items:center}
-    input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.15);color:var(--text);outline:none}
-    .muted{color:var(--muted);font-size:12px;line-height:1.35}
-    .cta{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(110,168,255,.55);
-         background:linear-gradient(135deg, rgba(110,168,255,.25), rgba(124,255,197,.15));
-         color:var(--text);cursor:pointer;font-weight:800}
-    .cta:disabled{opacity:.55;cursor:not-allowed}
-  </style>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://wallpaperaccess.com/full/1567666.png') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            width: 300px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .payment-box {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #00c3ff;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            background: #0099cc;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
 
-    <!-- PRODUK -->
-    <section class="card">
-      <header>
-        <div>
-          <h1 id="shopName">TOKO KAMU</h1>
-          <small>Jualan simple + checkout ke WhatsApp</small>
-        </div>
-        <small id="cartCount">Keranjang: 0</small>
-      </header>
+<div class="container">
+    <h1>Payment</h1>
 
-      <div class="grid" id="productGrid"></div>
-    </section>
+    <div class="payment-box">
+        <p><strong>DANA</strong></p>
+        <p>081234567890</p> <!-- GANTI NOMOR DANA -->
+    </div>
 
-    <!-- KERANJANG -->
-    <aside class="card">
-      <header>
-        <h1>Keranjang</h1>
-        <button class="btn" id="clearBtn" type="button">Kosongkan</button>
-      </header>
+    <div class="payment-box">
+        <p><strong>QRIS</strong></p>
+        <a href="https://linkqrisanda.com" target="_blank">Klik untuk bayar QRIS</a> <!-- GANTI LINK QRIS -->
+    </div>
 
-      <div class="cart">
-        <div>
-          <label class="muted">Nama pembeli</label>
-          <input id="buyerName" placeholder="Contoh: Andi" />
-        </div>
-        <div>
-          <label class="muted">Alamat / Catatan</label>
-          <input id="buyerNote" placeholder="Contoh: Jl. Mawar No. 12 / warna hitam" />
-        </div>
+    <a class="btn" href="#">Konfirmasi Pembayaran</a>
+</div>
 
-        <div id="cartList" style="display:flex;flex-direction:column;gap:10px;"></div>
-
-        <div class="total">
-          <div>
-            <div class="muted">Total</div>
-            <div style="font-size:18px;font-weight:900" id="totalText">Rp 0</div>
-          </div>
-          <div style="min-width:140px">
-            <button class="cta" id="waBtn" type="button" disabled>Checkout WA</button>
-          </div>
-        </div>
-
-        <div class="muted">
-          * Tombol Checkout akan membuka WhatsApp dengan format pesanan otomatis.
-        </div>
-      </div>
-    </aside>
-
-  </div>
-
-  <script>
-    // ===== UBAH INI =====
-    const WHATSAPP_NUMBER = "6281234567890"; // ganti: format internasional, tanpa + (contoh Indonesia 62...)
-    const SHOP_NAME = "TOKO KAMU";
-
-    const products = [
-      { id: "p1", name: "Produk A", price: 25000 },
-      { id: "p2", name: "Produk B", price: 50000 },
-      { id: "p3", name: "Produk C", price: 12000 },
-      { id: "p4", name: "Produk D", price: 99000 },
-    ];
-    // ====================
-
-    const rupiah = (n) => "Rp " + new Intl.NumberFormat("id-ID").format(n || 0);
-
+</body>
+</html>
     const productGrid = document.getElementById("productGrid");
     const cartList = document.getElementById("cartList");
     const totalText = document.getElementById("totalText");
