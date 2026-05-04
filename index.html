@@ -2,171 +2,230 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Cyber Anime Payment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Anime</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
 body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(circle at top, #0f0f1a, #050509);
-  color: #fff;
-  text-align: center;
-  overflow-x: hidden;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    overflow: hidden;
+    color: white;
 }
 
-/* Efek neon background */
-body::before {
-  content: "";
-  position: fixed;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, #00f7ff, #ff00c8, #00f7ff);
-  animation: neonBG 10s linear infinite;
-  opacity: 0.05;
+/* BACKGROUND */
+.glitch-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.pinimg.com/originals/8c/4c/8b/8c4c8b6f7d3d0f1a06d2b67c0b0d3b1f.gif');
+    background-size: cover;
+    filter: brightness(0.4);
+    z-index: -2;
 }
 
-@keyframes neonBG {
-  0% { transform: translate(0,0); }
-  100% { transform: translate(-50%, -50%); }
+.scanline {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    z-index: -1;
 }
 
+/* CONTAINER */
 .container {
-  padding: 30px;
-  position: relative;
-  z-index: 1;
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 330px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 0 25px #00f7ff;
 }
 
-/* Anime avatar */
+/* STORE NAME */
+.store-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00f7ff;
+    margin-bottom: 10px;
+}
+
+/* PRODUK */
+.product {
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 1px solid rgba(0,255,255,0.2);
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00f7ff;
+}
+
+.price {
+    color: #00f7ff;
+    font-weight: bold;
+}
+
+/* IMAGE */
 .anime-img {
-  width: 160px;
-  border-radius: 50%;
-  border: 3px solid #00f7ff;
-  box-shadow: 0 0 20px #00f7ff, 0 0 40px #ff00c8;
-  animation: glow 2s infinite alternate;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #00f7ff;
 }
 
-@keyframes glow {
-  from { box-shadow: 0 0 10px #00f7ff; }
-  to { box-shadow: 0 0 25px #ff00c8; }
+/* PAYMENT */
+.payment-box {
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
-h1 {
-  margin-top: 15px;
-  font-size: 28px;
-  color: #00f7ff;
-  text-shadow: 0 0 10px #00f7ff;
-}
-
-p {
-  color: #aaa;
-}
-
-/* Card neon */
-.card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(0,255,255,0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 300px;
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
-  transition: 0.3s;
-}
-
-.card:hover {
-  box-shadow: 0 0 25px #00f7ff;
-  transform: scale(1.03);
-}
-
-h2 {
-  color: #ff00c8;
-  text-shadow: 0 0 8px #ff00c8;
-}
-
-/* Button neon */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 10px;
-  background: transparent;
-  border: 2px solid #00f7ff;
-  color: #00f7ff;
-  cursor: pointer;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: #00f7ff;
-  color: #000;
-  box-shadow: 0 0 15px #00f7ff;
+/* BUTTON */
+.btn, .btn-copy {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #00f7ff, #0066ff);
+    color: white;
+    cursor: pointer;
 }
 
 /* QRIS */
 .qris-img {
-  width: 200px;
-  border-radius: 10px;
-  margin-top: 10px;
-  box-shadow: 0 0 15px #ff00c8;
+    width: 100%;
+    margin-top: 8px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-footer {
-  margin-top: 30px;
-  font-size: 12px;
-  color: #666;
+/* NOTIF */
+.notif {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #00f7ff;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: none;
 }
 
-/* Animasi masuk */
-.fade-in {
-  animation: fadeIn 1.5s ease;
+/* POPUP */
+.popup {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.popup img {
+    max-width: 90%;
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="container fade-in">
+<div class="glitch-bg"></div>
+<div class="scanline"></div>
 
-  <!-- Ganti gambar anime -->
-  <img src="https://files.catbox.moe/lxwq5t.jpeg" class="anime-img">
+<div class="container" id="box">
+    <div class="notif" id="notif">Copied!</div>
 
-  <h1>CYBER PAYMENT</h1>
-  <p>Pilih metode pembayaran</p>
+    <!-- NAMA TOKO -->
+    <div class="store-name">TES SHOP</div>
 
-  <!-- DANA -->
-  <div class="card">
-    <h2>DANA</h2>
-    <p id="dana">085711764473</p>
-    <button class="btn" onclick="copyDana()">Salin Nomor</button>
-  </div>
+    <img src="https://i.pinimg.com/736x/3e/0c/2c/3e0c2c8cbb8df2e3f2f9c92c4b8f6c3a.jpg" class="anime-img">
 
-  <!-- QRIS -->
-  <div class="card">
-    <h2>QRIS</h2>
-    <!-- Ganti QRIS -->
-    <img src="https://files.catbox.moe/5srb9x.jpg" class="qris-img">
-    <p>Scan untuk bayar</p>
-  </div>
+    <!-- PRODUK -->
+    <div class="product">
+        <p>SC OVALIUM</p>
+        <div class="price">Rp 30.000</div>
+        <div class="price">harga lengkap minta admin</div>
+    </div>
 
-  <footer>© 2026 Cyber Payment</footer>
+    <div class="product">
+        <p>BUAT LINK TOPUP</p>
+        <div class="price">Rp 49.000</div>
+    </div>
 
+    <h3 style="color:#00f7ff;">Payment</h3>
+
+    <div class="payment-box">
+        <p>DANA</p>
+        <b id="danaNumber">085711764473</b>
+        <button class="btn-copy" onclick="copyDana()">Copy</button>
+    </div>
+
+    <div class="payment-box">
+        <p>QRIS</p>
+        <img src="https://files.catbox.moe/5srb9x.jpg" class="qris-img" onclick="zoomQRIS(this)">
+    </div>
+
+    <button class="btn" onclick="nextMusic()">🎧 Ganti Musik</button>
+
+    <audio id="player" autoplay loop></audio>
+</div>
+
+<div class="popup" id="popup" onclick="closePopup()">
+    <img id="popupImg">
 </div>
 
 <script>
+const songs = [
+    "https://files.catbox.moe/8xq6jx.mp3",
+    "https://files.catbox.moe/3f7q6r.mp3",
+    "https://files.catbox.moe/1h3k7g.mp3"
+];
+
+const player = document.getElementById("player");
+
+function playRandom() {
+    player.src = songs[Math.floor(Math.random() * songs.length)];
+    player.play();
+}
+
+function nextMusic() {
+    playRandom();
+}
+
 function copyDana() {
-  const text = document.getElementById("dana").innerText;
-  navigator.clipboard.writeText(text);
-  alert("Nomor DANA berhasil disalin!");
+    const text = document.getElementById("danaNumber").innerText;
+    navigator.clipboard.writeText(text);
+    const notif = document.getElementById("notif");
+    notif.style.display = "block";
+    setTimeout(() => notif.style.display = "none", 2000);
+}
+
+function zoomQRIS(img) {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popupImg").src = img.src;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
 }
 </script>
 
