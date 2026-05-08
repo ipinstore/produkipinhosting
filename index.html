@@ -1,233 +1,38 @@
+
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Anime</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: black;
-    overflow: hidden;
-    color: white;
-}
-
-/* BACKGROUND */
-.glitch-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('https://i.pinimg.com/originals/8c/4c/8b/8c4c8b6f7d3d0f1a06d2b67c0b0d3b1f.gif');
-    background-size: cover;
-    filter: brightness(0.4);
-    z-index: -2;
-}
-
-.scanline {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.03) 0px,
-        rgba(255,255,255,0.03) 1px,
-        transparent 2px,
-        transparent 4px
-    );
-    z-index: -1;
-}
-
-/* CONTAINER */
-.container {
-    position: relative;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 330px;
-    padding: 20px;
-    border-radius: 20px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    box-shadow: 0 0 25px #00f7ff;
-}
-
-/* STORE NAME */
-.store-name {
-    font-size: 22px;
-    font-weight: bold;
-    color: #00f7ff;
-    margin-bottom: 10px;
-}
-
-/* PRODUK */
-.product {
-    background: rgba(255,255,255,0.05);
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 1px solid rgba(0,255,255,0.2);
-    transition: 0.3s;
-}
-
-.product:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #00f7ff;
-}
-
-.price {
-    color: #00f7ff;
-    font-weight: bold;
-}
-
-/* IMAGE */
-.anime-img {
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #00f7ff;
-}
-
-/* PAYMENT */
-.payment-box {
-    background: rgba(255,255,255,0.05);
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-/* BUTTON */
-.btn, .btn-copy {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(45deg, #00f7ff, #0066ff);
-    color: white;
-    cursor: pointer;
-}
-
-/* QRIS */
-.qris-img {
-    width: 100%;
-    margin-top: 8px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-/* NOTIF */
-.notif {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #00f7ff;
-    color: black;
-    padding: 5px 10px;
-    border-radius: 8px;
-    display: none;
-}
-
-/* POPUP */
-.popup {
-    display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-}
-
-.popup img {
-    max-width: 90%;
-}
-</style>
+<meta charset="utf-8">
+<title>Xatanical Protected</title>
 </head>
-
 <body>
-
-<div class="glitch-bg"></div>
-<div class="scanline"></div>
-
-<div class="container" id="box">
-    <div class="notif" id="notif">Copied!</div>
-
-    <!-- NAMA TOKO -->
-    <div class="store-name">TES SHOP</div>
-
-    <img src="https://i.pinimg.com/736x/3e/0c/2c/3e0c2c8cbb8df2e3f2f9c92c4b8f6c3a.jpg" class="anime-img">
-
-    <!-- PRODUK -->
-    <div class="product">
-        <p>SC OVALIUM</p>
-        <div class="price">Rp 30.000</div>
-        <div class="price">harga lengkap minta admin</div>
-    </div>
-
-    <div class="product">
-        <p>BUAT LINK TOPUP</p>
-        <div class="price">Rp 49.000</div>
-    </div>
-
-    <h3 style="color:#00f7ff;">Payment</h3>
-
-    <div class="payment-box">
-        <p>DANA</p>
-        <b id="danaNumber">085711764473</b>
-        <button class="btn-copy" onclick="copyDana()">Copy</button>
-    </div>
-
-    <div class="payment-box">
-        <p>QRIS</p>
-        <img src="https://files.catbox.moe/5srb9x.jpg" class="qris-img" onclick="zoomQRIS(this)">
-    </div>
-
-    <button class="btn" onclick="nextMusic()">🎧 Ganti Musik</button>
-
-    <audio id="player" autoplay loop></audio>
-</div>
-
-<div class="popup" id="popup" onclick="closePopup()">
-    <img id="popupImg">
-</div>
-
 <script>
-const songs = [
-    "https://files.catbox.moe/8xq6jx.mp3",
-    "https://files.catbox.moe/3f7q6r.mp3",
-    "https://files.catbox.moe/1h3k7g.mp3"
-];
+(function(){
+  const e = "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";
+  const k = 114;
 
-const player = document.getElementById("player");
+  function d64(b){
+    try { return atob(b); }
+    catch(e){ return ""; }
+  }
 
-function playRandom() {
-    player.src = songs[Math.floor(Math.random() * songs.length)];
-    player.play();
-}
+  function x(d, k){
+    let o = "";
+    for(let i=0;i<d.length;i++){
+      o += String.fromCharCode(d.charCodeAt(i) ^ k);
+    }
+    return o;
+  }
 
-function nextMusic() {
-    playRandom();
-}
-
-function copyDana() {
-    const text = document.getElementById("danaNumber").innerText;
-    navigator.clipboard.writeText(text);
-    const notif = document.getElementById("notif");
-    notif.style.display = "block";
-    setTimeout(() => notif.style.display = "none", 2000);
-}
-
-function zoomQRIS(img) {
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("popupImg").src = img.src;
-}
-
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
+  try {
+    const dec = x(d64(e), k);
+    document.open();
+    document.write(dec);
+    document.close();
+  } catch(err){
+    document.body.innerHTML = "❌ Failed to load content";
+  }
+})();
 </script>
-
 </body>
 </html>
